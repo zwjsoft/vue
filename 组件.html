@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="div1" >
+        <button-counter title="计数"></button-counter>
+        <button-counter></button-counter>
+        <div  :style="{fontSize:fontSize+'em'}">
+            <blog-post v-on:enlarge-text="addFontSize($event)" v-bind:posts="posts">
+
+            </blog-post>
+        </div>
+    </div>
+    <script>
+    Vue.component('button-counter',{
+        props:['title'],
+        template:'<button v-on:click="count++">{{title}}:{{count}}</button>',
+        data:function(){
+            return {
+                count:0
+            }
+        }
+    })
+    Vue.component('blog-post',{
+        props:['posts'],
+        template:`<div>
+                <ul>
+                <button v-on:click="$emit('enlarge-text',0.2)">+</button>
+                <li v-for="item in posts">
+                    <h1>id:{{item.id}} title:{{item.title}}</h1>
+                    <div v-html="item.content"></div>
+                </li>
+            </ul>
+        </div>`,
+        data:function(){
+            return {
+                count:0
+            }
+        }
+    })
+    new Vue({
+        el:"#div1",
+        data:{
+            fontSize:1,
+            posts:[
+                {id:1,title:"aaaaaaa",content:"<a href='www.baidu.com'>asdfasfas</a>"},
+                {id:2,title:"bbbbbbb",content:'12   23tqw'},
+                {id:3,title:"ccccccc",content:'ajsgalgasd'}
+            ]
+        },
+        methods:{
+            addFontSize(v){
+                console.log("========")
+                this.fontSize+=v
+            }
+        }
+    })
+    </script>
+
+</body>
+</html>

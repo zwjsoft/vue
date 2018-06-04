@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.13/dist/vue.js"></script>
+    <style>
+    div{
+        width:400px;
+        height: 400px;
+        border:1px solid;
+        text-align: center
+    }
+    </style>
+</head>
+<body>
+<div id="div1">
+    <div  v-on:mousemove="updateXY">
+        {{x}},{{y}}
+        <span v-on:mousemove.stop="">stop moving</span>
+    </div>
+    <button @click.once="add(1)">增加一岁</button>
+    <button @click="add(1)">减少一岁</button>
+    <button @dblclick="add(10)">增加十岁</button>
+    <button @dblclick="add(-10)">减少十岁</button>
+    <p>年龄是：{{age}}</p>
+
+    姓名：<input type="text" name="name" v-on:keyup.alt.enter="k1" /><br/>
+    年龄：<input type="text" name="age"  v-on:keyup.enter="k2"/>
+</div>
+    <script>
+    new Vue({
+        el:"#div1",
+        data:{
+            name:"zwj",
+            x:0,
+            y:0,
+            age:20
+        },
+        methods:{
+            updateXY(event){
+                this.x=event.offsetX;
+                this.y=event.offsetY;
+            },
+            add(i){
+                this.age+=i;
+            },
+            stopMove(event){
+                event.stopPropagation();
+            },
+            k1(){
+                console.log("input name");
+            },
+            k2(){
+                console.log("input age");
+            }
+        }
+    })
+    
+    </script>
+</body>
+</html>
