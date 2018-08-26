@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<body>
+    <div id="div1">
+        <blog-post v-for="post in posts" v-bind:post="post"></blog-post>
+    </div>
+    
+    <script>
+        Vue.component('blog-post', {
+        props: ['post'],
+        template: `
+            <div>id:{{ post.id }} title:{{post.title}}</div>
+        `
+        })
+
+        new Vue({
+            el: '#div1',
+            data: {
+                posts: [{id:1,title:'123456'},{id:2,title:'222222222'}],
+                postFontSize: 1
+            }
+            })
+    
+    </script>
+</body>
+</html>
