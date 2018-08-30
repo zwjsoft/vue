@@ -1,17 +1,17 @@
 <template>
   <div id="app">
 
-    <Test msg="Welcome to Your Vue.js App"/>
+    <IM />
   </div>
 </template>
 
 <script>
-import Test from './components/Test.vue'
+import IM from './components/IM.vue'
 
 export default {
   name: 'app',
   components: {
-    Test
+    IM
   }
 }
 </script>

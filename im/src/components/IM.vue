@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-      <div><H1>舜博学数学</H1></div><br>
+      <div><H1>儿童学数学</H1></div><br>
     <div class="form-group">
         <label for="input1">难度：</label>
         <input type="number" v-model="max" id="input1" />       
@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'Test',
+  name: 'IM',
   data () {
     return {
       n1: 0,
@@ -115,7 +115,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     img{
-        height:200px
+        height:100px
     }
 
 </style>
