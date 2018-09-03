@@ -1,18 +1,49 @@
 <template>
   <div class="container">
-      <div><H1>儿童学数学</H1></div><br>
+      <div><H2>儿童学数学</H2></div>
     <div class="form-group">
         <label for="input1">难度：</label>
-        <input type="number" v-model="max" id="input1" />       
+        <input type="number" v-model="max" id="input1" />    
     </div>
     <div>
-       <h3>总答数：{{count}}&nbsp正确：{{ocount}}&nbsp错误：{{ecount}}</h3> 
+      <pre><h3>总答数：{{count}} 正确：{{ocount}} 错误：{{ecount}}</h3>
+      </pre>
     </div>
        <div class="form-group">
            <button class="btn btn-primary btn-lg btn-block" v-on:click="initNumber()">出题</button>
        </div>
     
-    <h2>(<span v-show="bn1">{{n1}}</span>){{operation}}(<span v-show="bn2">{{n2}}</span>)=(<span v-show="bn">{{n}}</span>)</h2>
+    <h2>
+        <div v-if="btips && bn1">
+            <span v-if="n1>=n">
+                <span><img class="numberImg" v-for="i in n2" :key="i" src="../assets/apple.png" alt=""></span>
+                <span style="margin-left:20px"><img class="numberImg" v-for="i in n" :key="i"  src="../assets/apple.png" alt=""></span>
+            </span>
+            <span v-if="n1<n">
+                <img class="numberImg" v-for="i in n1" :key="i"  src="../assets/apple.png" alt="">
+            </span>
+        </div>
+        <div class="numberBox">
+            <span v-show="bn1">{{n1}}</span>
+        </div>
+        <div v-if="btips && bn2"><img class="numberImg" v-for="i in n2" :key="i" src="../assets/apple.png" alt=""></div>
+        <div class="numberBox">
+            <div class="operation">{{operation}}</div>           
+            <span v-show="bn2">{{n2}}</span>
+        </div>
+        <div v-if="btips && bn">
+            <span v-if="n>=n1">
+                <span><img class="numberImg" v-for="i in n1" :key="i" src="../assets/apple.png" alt=""></span>
+                <span style="margin-left:20px"><img class="numberImg" v-for="i in n2" :key="i" src="../assets/apple.png" alt=""></span>
+            </span>
+            <span v-if="n1>n">
+                <img class="numberImg" v-for="i in n" :key="i" src="../assets/apple.png" alt="">
+            </span>        </div>
+        <div class="numberBox">
+            <div class="operation">=</div>    
+            <span v-show="bn">{{n}}</span>
+        </div>
+    </h2>
     <img src="./../assets/pig.jpg" v-show="eflag" alt="">
     <img src="./../assets/smile.jpg" v-show="oflag" alt="">
     <div>
@@ -20,8 +51,9 @@
         <label for="input2">答案：</label>        
         <input type="number" v-model="da" id="input2" />
         <button class="btn btn-primary" v-on:click="result(da)">答题</button>   
+        <button class="btn btn-primary" v-on:click="tips()">提示</button>   
         </div> 
-        <button class="btn btn-primary  btn-lg" v-for="number in max<=50?(parseInt(max)+1):0" v-on:click="result(number-1)">{{number-1}}</button>
+        <button class="btn btn-primary  btn-lg" v-for="number in max<=50?(parseInt(max)+1):0" :key="number" v-on:click="result(number-1)">{{number-1}}</button>
     </div>
 
   </div>
@@ -35,7 +67,7 @@ export default {
       n1: 0,
       n2: 0,
       n:0,
-      max:20,
+      max:10,
       da:'',
       eflag:false,
       oflag:false,
@@ -46,6 +78,7 @@ export default {
       bn1:true,
       bn2:true,
       bn:true,
+      btips:false,
       cn:0
     }
   },
@@ -55,6 +88,7 @@ export default {
     methods:{
         initNumber(){
             this.da=''
+            this.btips=false;
             if(Math.random()<0.5) {
                 this.operation='+'
             }else{
@@ -89,6 +123,9 @@ export default {
             }
 
         },
+        tips(){
+            this.btips=true
+        },
         result(n){
             this.count++
             console.log(this.cn,n)
@@ -117,5 +154,24 @@ export default {
     img{
         height:100px
     }
+    .numberBox{
+        position: relative;
+        height: 40px;
+        border-bottom:1px solid lightgray;
+        margin: 10px;
+        width:200px;
+        left:50%;
+        margin-left:-100px;
+        overflow: auto;
+    }
+    .operation{
+        position:absolute;
+        width:100px;
+        left:50%;
+        margin-left:-100px;
 
+    }
+    .numberImg{
+        height: 30px;
+    }
 </style>
